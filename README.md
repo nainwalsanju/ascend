@@ -105,7 +105,24 @@ TRACKING_BASE_URL=http://localhost:8085
 
 ---
 
-## 📋 Command Playbook
+## ⚡ One-Click Autonomous Execution (Autopilot)
+
+Run the full end-to-end pipeline (Resume compile -> ATS audit -> Job scrape -> Cold emails -> Form answers -> Telemetry daemon) with a single command:
+
+```powershell
+# Windows
+.\run_pipeline.ps1
+
+# Linux / macOS / WSL
+chmod +x run_pipeline.sh
+./run_pipeline.sh
+```
+
+👉 **For complete hands-free daily scheduling instructions (e.g. 9:00 AM daily task), see the [Zero-Touch User Guide (USER_GUIDE.md)](USER_GUIDE.md).**
+
+---
+
+## 📋 Granular Subagent Command Playbook
 
 ```powershell
 # ==========================================================
