@@ -1,0 +1,50 @@
+# Secrets & Credentials
+.env
+*.secret_key
+
+# External Upstream Cloned Repositories
+services/*/upstream/
+upstream/
+
+# Personal Resumes & Outputs (Keep strictly local)
+resume/master_resume.yaml
+resume/*.pdf
+resume/**/*.pdf
+resume/rendercv_output/
+resume/reports/
+
+# Personal Handbooks & Candidate Notes
+docs/
+
+# Local Application Reports & Telemetry Logs
+tracker/reports/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Python build & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Testing & Lint caches
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+.idea/
+.vscode/

@@ -1,0 +1,86 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.3/schema.json
+cv:
+  name: Candidate Name
+  location: San Francisco, CA (Open to Remote / Relocation)
+  email: candidate@example.com
+  phone: +1-555-0199
+  website: https://portfolio.example.com
+  social_networks:
+    - network: LinkedIn
+      username: candidate-profile
+    - network: GitHub
+      username: candidate-github
+
+  sections:
+    summary:
+      - Senior Full-Stack & Distributed Systems Engineer with 5+ years of experience architecting high-throughput backend infrastructure, autonomous AI systems, and scalable cloud platforms from zero to production. Proven track record of leading zero-downtime database migrations, deploying event-driven microservices across Kafka and Redis, and building resilient full-stack platforms for enterprise tech companies.
+
+    skills:
+      - label: Core Languages
+        details: Python, Go (Golang), Java, TypeScript, JavaScript, SQL, Bash
+      - label: Full-Stack & Web Technologies
+        details: React, Next.js, TypeScript, Tailwind CSS, GraphQL, REST APIs, WebSockets, gRPC
+      - label: Distributed Systems & Architecture
+        details: Microservices, Apache Kafka, RabbitMQ, Redis (Caching & Locking), Event-Driven Architecture, High Throughput (QPS/RPS), Idempotency, Concurrency
+      - label: AI & Autonomous Agents
+        details: LLM Orchestration (Gemini, Claude, OpenAI), Autonomous Agent Loops, RAG Pipelines, Prompt Engineering, Structured JSON Outputs, Vector Embeddings
+      - label: Databases & Storage
+        details: PostgreSQL, Amazon Aurora, MySQL, Redis, MongoDB, Elasticsearch, Supabase, DynamoDB, Database Indexing, Query Profiling
+      - label: Cloud & DevOps
+        details: AWS (EKS, ECS, RDS, SQS, S3), GCP, Docker, Kubernetes, Terraform, CI/CD (GitHub Actions)
+      - label: Observability & Reliability
+        details: OpenTelemetry, Prometheus, Grafana, Distributed Tracing, Circuit Breakers, SLO/SLA Engineering (99.99%)
+
+    experience:
+      - company: TechCorp AI
+        position: Senior AI & Backend Systems Engineer
+        location: San Francisco, CA (Remote)
+        start_date: 2024-01
+        end_date: present
+        highlights:
+          - Built an autonomous agent workflow engine using Next.js, TypeScript, and Python, automating multi-channel lead discovery and prospect outreach across 25,000+ accounts by orchestrating APIs and LLMs.
+          - Designed a high-throughput lead enrichment pipeline with web crawlers, accelerating data processing velocity by 60% while enforcing multi-tenant isolation in PostgreSQL.
+          - Implemented enterprise admin impersonation and bidirectional CRM integrations with encrypted session switching and webhook event dispatchers.
+          - Engineered an autonomous worker loop with distributed lease locks and exponential retry backoff, maintaining 99.9% task execution reliability.
+
+      - company: CloudScale Systems
+        position: Founding Full-Stack & Backend Engineer
+        location: New York, NY (Remote)
+        start_date: 2023-01
+        end_date: 2023-12
+        highlights:
+          - Built and launched the end-to-end cloud platform from ground zero, orchestrating microservices, PostgreSQL databases, and Next.js user portals.
+          - Engineered high-throughput data discovery pipelines, indexing 100,000+ public records with sub-second retrieval times by designing normalized schemas and composite indexes.
+          - Built role-based administrative dashboards and client portals, reducing customer onboarding cycle times by 65%.
+          - Designed and provisioned AWS cloud infrastructure using Docker, Terraform, and GitHub Actions CI/CD pipelines, achieving 99.95% launch uptime.
+
+      - company: Global Payments Corp
+        position: Software Development Engineer - II (Core Payments)
+        location: Seattle, WA
+        start_date: 2021-06
+        end_date: 2022-12
+        highlights:
+          - Designed a fault-tolerant payment ingestion pipeline handling 30,000 QPS with 99.99% availability by deploying asynchronous Apache Kafka event consumers and Redis write-behind caching.
+          - Led a zero-downtime database migration for 1 Billion+ financial records from legacy MySQL to Amazon Aurora with 0% data loss by implementing dual-write synchronization and automated data consistency verification.
+          - Engineered an idempotent payout microservice processing $20M+ daily across distributed databases with zero state inconsistency by implementing distributed locking.
+          - Built a real-time anomaly detection engine analyzing high TPS transaction telemetry, reducing fraudulent payout leakages by 40%.
+          - Slashed annual cloud infrastructure costs by $120,000 (FinOps) by optimizing Kubernetes pod resource allocations and right-sizing cloud instances.
+
+    projects:
+      - name: Autonomous SRE & Incident Remediation Platform
+        start_date: 2024-01
+        end_date: 2024-06
+        highlights:
+          - Built an autonomous incident remediation platform in Python and Go, orchestrating 100+ secure Docker cloud execution sandboxes with sub-10ms startup latency.
+          - Reduced MTTR (Mean Time to Resolution) by 50% across simulated production outages by integrating runbook-aware RAG pipelines and PagerDuty alert deduplication.
+          - Engineered low-latency bidirectional WebSocket telemetry with Prometheus and Grafana, processing live container terminal streams with sub-15ms round-trip latency.
+
+    education:
+      - institution: University of Technology
+        area: Computer Science and Engineering
+        degree: Bachelor of Technology (B.Tech)
+        start_date: 2017-08
+        end_date: 2021-05
+        highlights:
+          - Graduated with First Class Distinction.
+          - Coursework: Distributed Systems, Operating Systems, Algorithms, Database Management Systems.

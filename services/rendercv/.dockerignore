@@ -1,0 +1,4 @@
+upstream/
+.git
+__pycache__
+*.pyc

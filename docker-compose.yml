@@ -1,0 +1,63 @@
+services:
+  rendercv:
+    build:
+      context: ./services/rendercv
+      dockerfile: Dockerfile
+    image: career-rendercv:latest
+    container_name: career-rendercv
+    volumes:
+      - ./resume:/work
+    working_dir: /work
+    command: render master_resume.yaml
+
+  resume-matcher:
+    build:
+      context: ./services/resume-matcher
+      dockerfile: Dockerfile
+    image: career-resume-matcher:latest
+    container_name: career-resume-matcher
+    volumes:
+      - ./resume:/app/data/resumes
+      - ./job_descriptions:/app/data/jobs
+      - ./resume/reports:/app/data/reports
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-3.8-flash}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://ollama:11434}
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-llama3.2}
+    command: ["python", "matcher.py"]
+
+  career-ops:
+    build:
+      context: ./services/career-ops
+      dockerfile: Dockerfile
+    image: career-ops:latest
+    container_name: career-ops
+    volumes:
+      - ./tracker:/app/data
+    environment:
+      - MIN_BASE_SALARY=${MIN_BASE_SALARY:-130000}
+      - TARGET_MAX_SALARY=${TARGET_MAX_SALARY:-350000}
+    command: ["python", "pipeline.py"]
+
+  outreach-engine:
+    build:
+      context: ./services/outreach-engine
+      dockerfile: Dockerfile
+    image: career-outreach-engine:latest
+    container_name: career-outreach-engine
+    volumes:
+      - ./tracker:/app/data
+      - ./resume:/app/resume
+    ports:
+      - "8085:8085"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-3.8-flash}
+      - SMTP_HOST=${SMTP_HOST:-smtp.gmail.com}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASS=${SMTP_PASS:-}
+      - TRACKING_BASE_URL=${TRACKING_BASE_URL:-http://localhost:8085}
+    command: ["python", "pipeline.py"]
+

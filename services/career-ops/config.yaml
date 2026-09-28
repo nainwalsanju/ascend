@@ -1,0 +1,39 @@
+# Career-Ops Scanner Configuration
+
+filters:
+  min_base_salary: 130000
+  target_max_salary: 350000
+  currency: "USD"
+  preferred_locations:
+    - "Remote"
+    - "United States"
+    - "San Francisco, CA"
+    - "New York, NY"
+    - "Seattle, WA"
+  target_roles:
+    - "Senior Backend Engineer"
+    - "Staff Backend Engineer"
+    - "Distributed Systems Engineer"
+    - "Senior Software Engineer"
+    - "Staff Software Engineer"
+    - "Full-Stack Lead"
+
+scoring_weights:
+  compensation: 0.35
+  tech_stack_match: 0.35
+  tier1_prestige: 0.20
+  location_flexibility: 0.10
+
+high_signal_boards:
+  greenhouse:
+    - "stripe"
+    - "databricks"
+    - "figma"
+    - "vercel"
+    - "ramp"
+    - "scaleai"
+  ashby:
+    - "openai"
+    - "anthropic"
+    - "linear"
+    - "replit"
