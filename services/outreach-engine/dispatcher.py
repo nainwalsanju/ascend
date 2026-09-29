@@ -91,22 +91,43 @@ class EmailDispatcher:
                 attach.add_header("Content-Disposition", "attachment", filename=attachment_path.name)
                 msg.attach(attach)
 
+        clean_pass = self.smtp_pass.replace(" ", "").strip()
+
+        # Helper to attempt sending through a server instance
+        def _attempt_send(server):
+            server.ehlo()
+            server.login(self.smtp_user, clean_pass)
+            server.sendmail(self.smtp_user, [to_email], msg.as_string())
+
         try:
-            with smtplib.SMTP(self.smtp_host, self.smtp_port, timeout=15) as server:
-                server.starttls()
-                server.login(self.smtp_user, self.smtp_pass)
-                server.sendmail(self.smtp_user, [to_email], msg.as_string())
+            if self.smtp_port == 465:
+                with smtplib.SMTP_SSL(self.smtp_host, self.smtp_port, timeout=15) as server:
+                    _attempt_send(server)
+            else:
+                try:
+                    with smtplib.SMTP(self.smtp_host, self.smtp_port, timeout=15) as server:
+                        server.ehlo()
+                        server.starttls()
+                        server.ehlo()
+                        _attempt_send(server)
+                except (smtplib.SMTPServerDisconnected, ConnectionError):
+                    # Fallback to SSL on port 465 if STARTTLS connection dropped
+                    with smtplib.SMTP_SSL(self.smtp_host, 465, timeout=15) as server:
+                        _attempt_send(server)
+
             print(f"[Dispatcher Success] Email dispatched to {to_email}")
-            return {"status": "sent", "message": "Email sent successfully."}
+            return {"status": "sent", "message": f"Email sent successfully to {to_email}."}
         except smtplib.SMTPAuthenticationError as auth_err:
             err_str = str(auth_err)
             if "5.7.9" in err_str or "Application-specific password" in err_str:
                 hint = (
                     "Gmail requires a 16-character App Password (not your personal Google account password).\n"
-                    "Generate one at: https://myaccount.google.com/apppasswords and set SMTP_PASS in .env"
+                    "1. Open https://myaccount.google.com/apppasswords\n"
+                    "2. Generate an App Password for 'Ascend'\n"
+                    "3. Paste the 16 characters into .env as SMTP_PASS and save the file (Ctrl+S)."
                 )
             else:
-                hint = "SMTP Authentication failed. Please check SMTP_USER and SMTP_PASS."
+                hint = "SMTP Authentication failed. Please verify SMTP_USER and SMTP_PASS."
             print(f"[Dispatcher Error]: {auth_err}\n[Hint]: {hint}")
             return {"status": "failed", "error": err_str, "hint": hint}
         except Exception as e:
