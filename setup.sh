@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# End-to-End SWE Career System - 60-Second Interactive Setup Wizard (Bash)
+# Ascend: 60-Second Interactive Setup Wizard (Bash)
 # Usage:
 #   ./setup.sh
 # ==============================================================================

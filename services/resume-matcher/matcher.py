@@ -267,7 +267,7 @@ Return strict JSON:
 
 def main():
     print("==================================================================")
-    print("      RESUME-MATCHER: DOCKERIZED ATS & SEMANTIC GAP ANALYZER      ")
+    print("   ASCEND-RESUME-MATCHER: ATS AUDITOR & INTERVIEW DEFENSE        ")
     print("==================================================================")
     
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)

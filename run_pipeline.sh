@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# End-to-End SWE Career System - Autonomous Pipeline Runner (Bash)
+# Ascend: Autonomous SWE Career Acceleration Engine - Pipeline Runner (Bash)
 # Usage:
 #   ./run_pipeline.sh                # Run full end-to-end automated pipeline
 #   ./run_pipeline.sh --serve-only   # Only start/restart the background telemetry server

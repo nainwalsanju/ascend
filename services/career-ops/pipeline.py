@@ -11,7 +11,7 @@ CONFIG_FILE = Path(__file__).parent / "config.yaml"
 
 def main():
     print("==================================================================")
-    print("        CAREER-OPS: HIGH-COMPENSATION SWE PIPELINE SCANNER        ")
+    print("        ASCEND-OPS: HIGH-COMPENSATION OPPORTUNITY RADAR          ")
     print("==================================================================")
     
     with open(CONFIG_FILE, "r", encoding="utf-8") as f:

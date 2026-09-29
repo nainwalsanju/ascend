@@ -1,5 +1,5 @@
 # ==============================================================================
-# End-to-End SWE Career System - 60-Second Interactive Setup Wizard (PowerShell)
+# Ascend: 60-Second Interactive Setup Wizard (PowerShell)
 # Usage:
 #   .\setup.ps1
 # ==============================================================================

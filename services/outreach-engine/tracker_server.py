@@ -7,7 +7,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import Response, RedirectResponse
 
 DB_PATH = Path(os.getenv("DB_PATH", "/app/data/career_tracker.db"))
-app = FastAPI(title="Career System Outreach Telemetry Server", version="1.0.0")
+app = FastAPI(title="Ascend Outreach Telemetry Server", version="1.0.0")
 
 # 1x1 transparent GIF bytes
 TRANSPARENT_1X1_GIF = base64.b64decode("R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7")
@@ -20,7 +20,7 @@ def get_db():
 
 @app.get("/health")
 def health():
-    return {"status": "healthy", "service": "career-outreach-engine"}
+    return {"status": "healthy", "service": "ascend-outreach-engine"}
 
 @app.get("/t/o/{tracking_id}")
 def track_open(tracking_id: str, request: Request):

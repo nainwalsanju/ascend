@@ -1,5 +1,5 @@
 # ==============================================================================
-# End-to-End SWE Career System - Autonomous Pipeline Runner (PowerShell)
+# Ascend: Autonomous SWE Career Acceleration Engine - Pipeline Runner (PowerShell)
 # Usage:
 #   .\run_pipeline.ps1                # Run full end-to-end automated pipeline
 #   .\run_pipeline.ps1 -DryRun        # Run pipeline in safe dry-run mode (no live emails)

@@ -98,7 +98,7 @@ def init_outreach_schema():
 
 def run_outreach_generation():
     print("=" * 66)
-    print("   OUTREACH-DISPATCHER: EXECUTIVE OUTREACH & TELEMETRY ENGINE   ")
+    print("   ASCEND-OUTREACH: EXECUTIVE OUTREACH & TELEMETRY ENGINE       ")
     print("=" * 66)
     init_outreach_schema()
 
