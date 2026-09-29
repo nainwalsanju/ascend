@@ -10,7 +10,7 @@ This document outlines the specialized subagent hierarchy, operational boundarie
 Every subagent operating within this ecosystem MUST strictly adhere to the following rules:
 
 1. **Host Isolation:** Zero dependencies installed directly on the Windows host. All tool execution, compilation, scraping, database transactions, email dispatching, and tracking operations MUST run inside containerized Docker environments managed via `docker-compose.yml`.
-2. **Drive & Volume Confinement:** All persistent data, state, configurations, reports, and volume bind mounts MUST reside strictly on drive `D:\` under `D:\Projects\career-system\` (or workspace junction `d:\Projects\carrer-system\`). **NEVER write, mount, or persist data to `C:\`**.
+2. **Drive & Volume Confinement:** All persistent data, state, configurations, reports, and volume bind mounts MUST reside strictly on drive `D:\` under `D:\Projects\ascend\` (or workspace junction `d:\Projects\carrer-system\`). **NEVER write, mount, or persist data to `C:\`**.
 3. **100% Free-Tier Tooling:** Exclusive usage of open-source containers, local LLM backends (Ollama with `llama3.2`), Google Gemini Free Tier APIs (`gemini-3.8-flash`), and native Python SMTP. Zero paid third-party subscriptions.
 4. **Deterministic Metrics:** Every resume accomplishment bullet MUST strictly follow the Google X-Y-Z Formula (*"Accomplished [X], as measured by [Y], by doing [Z]"*).
 5. **Anti-Spam & Delivery Safeguards:** Cold outreach respects strict daily volume caps (max 15/day), rate-limits, and dry-run safety modes to preserve candidate domain reputation.

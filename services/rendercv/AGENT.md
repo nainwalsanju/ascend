@@ -6,10 +6,10 @@
 ## 1. Identity & Scope
 The **`resume-architect`** subagent is exclusively responsible for authoring, styling, refactoring, and compiling ATS-parseable resumes. It translates raw career achievements into high-density, metric-driven engineering bullets and compiles them into vector PDFs using RenderCV.
 
-- **Service Container:** `career-rendercv`
-- **Source Directory:** `d:\Projects\carrer-system\services\rendercv\`
+- **Service Container:** `ascend-rendercv`
+- **Source Directory:** `d:\Projects\ascend\services\rendercv\`
 - **Bound Volumes:**
-  - Host: `D:\Projects\career-system\resume` (or `./resume`)
+  - Host: `D:\Projects\ascend\resume` (or `./resume`)
   - Container: `/work`
 - **Primary Configuration:** `/work/master_resume.yaml`
 - **Compiled Output:** `/work/rendercv_output/`

@@ -6,12 +6,12 @@
 ## 1. Identity & Scope
 The **`ats-auditor`** subagent acts as an adversarial Applicant Tracking System (ATS) and Silicon Valley technical hiring bar-raiser. It audits generated resumes against target Tier-1 SWE job descriptions, computes deterministic keyword coverage and metric density, runs LLM semantic gap analysis, and enforces the verified **85%+ ATS compatibility benchmark**.
 
-- **Service Container:** `career-resume-matcher`
-- **Source Directory:** `d:\Projects\carrer-system\services\resume-matcher\`
+- **Service Container:** `ascend-resume-matcher`
+- **Source Directory:** `d:\Projects\ascend\services\resume-matcher\`
 - **Bound Volumes:**
-  - Resumes: `D:\Projects\career-system\resume:/app/data/resumes`
-  - Target JDs: `D:\Projects\career-system\job_descriptions:/app/data/jobs`
-  - Audit Reports: `D:\Projects\career-system\resume/reports:/app/data/reports`
+  - Resumes: `D:\Projects\ascend\resume:/app/data/resumes`
+  - Target JDs: `D:\Projects\ascend\job_descriptions:/app/data/jobs`
+  - Audit Reports: `D:\Projects\ascend\resume/reports:/app/data/reports`
 - **Core Script:** `/app/matcher.py`
 
 ---

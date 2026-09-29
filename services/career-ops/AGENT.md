@@ -6,10 +6,10 @@
 ## 1. Identity & Scope
 The **`market-scout`** subagent is responsible for discovering, filtering, scoring, and cataloging high-compensation software engineering opportunities ($130,000 to $300,000+ base). It polls public ATS APIs (Greenhouse, Ashby), ingests verified top-tier tech feeds (Levels.fyi, Y Combinator), scores opportunities against a 1–5 engineering rubric, and maintains a persistent SQLite tracker.
 
-- **Service Container:** `career-ops`
-- **Source Directory:** `d:\Projects\carrer-system\services\career-ops\`
+- **Service Container:** `ascend-ops`
+- **Source Directory:** `d:\Projects\ascend\services\career-ops\`
 - **Bound Volumes:**
-  - Database & Reports: `D:\Projects\career-system\tracker:/app/data`
+  - Database & Reports: `D:\Projects\ascend\tracker:/app/data`
 - **Core Pipeline Scripts:**
   - Ingestion: `/app/scrapers.py`
   - Rubric Evaluator: `/app/evaluator.py`
