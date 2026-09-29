@@ -1,12 +1,12 @@
-# Automated SWE Career System — Zero-Touch User Guide
+# ⚡ Ascend — Zero-Touch User Guide
 
-> **Goal:** Run the entire high-paying Software Engineering career pipeline completely on autopilot—from job discovery and resume rendering to cold outreach, application form answers, and telemetry tracking—without requiring manual intervention.
+> **Ascend** runs your entire high-paying Software Engineering career acceleration pipeline completely on autopilot—from job discovery and resume rendering to cold outreach, application form answers, and telemetry tracking—without requiring manual intervention.
 
 ---
 
 ## 📋 Table of Contents
 1. [System Architecture Flow](#1-system-architecture-flow)
-2. [One-Time 3-Minute Initial Setup](#2-one-time-3-minute-initial-setup)
+2. [60-Second Plug & Play Setup](#2-60-second-plug--play-setup)
 3. [One-Click Autonomous Execution](#3-one-click-autonomous-execution)
 4. [Setting Up 100% Hands-Free Daily Automation](#4-setting-up-100-hands-free-daily-automation)
    - [Windows Task Scheduler (Every Morning at 9:00 AM)](#a-windows-task-scheduler-recommended-for-windows)
@@ -21,26 +21,26 @@
 
 ## 1. System Architecture Flow
 
-Every day the automated pipeline runs through 5 autonomous phases inside isolated Docker containers:
+Every day the Ascend automated pipeline runs through 5 autonomous phases inside isolated Docker containers:
 
 ```mermaid
 graph TD
-    Trigger([Autopilot Trigger<br/>Cron / Task Scheduler / Manual]) --> Runner[run_pipeline.ps1 / run_pipeline.sh]
+    Trigger([Ascend Autopilot Trigger<br/>Cron / Task Scheduler / Manual]) --> Runner[run_pipeline.ps1 / run_pipeline.sh]
 
     subgraph "Phase 1: Resume Engineering"
-        Runner --> R1[career-rendercv]
+        Runner --> R1[ascend-rendercv]
         R1 --> R2[Compiles 2-Page Vector PDF<br/>Jake's sb2nov LaTeX Theme]
     end
 
     subgraph "Phase 2: ATS & Style Bar-Raising"
-        Runner --> M1[career-resume-matcher]
+        Runner --> M1[ascend-resume-matcher]
         M1 --> M2[Calculates Keyword Fit]
         M1 --> M3[Purges AI Buzzwords via Blacklist]
         M1 --> M4[Generates STAR Interview Defense Cheat-Sheet]
     end
 
     subgraph "Phase 3: High-Comp Opportunity Radar"
-        Runner --> S1[career-ops]
+        Runner --> S1[ascend-ops]
         S1 --> S2[Scrapes Greenhouse, Ashby & Lever APIs]
         S1 --> S3[Filters Comp >= $130k-$350k+]
         S1 --> S4[Cross-References Startup Funding Radar]
@@ -48,7 +48,7 @@ graph TD
     end
 
     subgraph "Phase 4: Cold Outreach & Form Answers"
-        Runner --> O1[career-outreach-engine]
+        Runner --> O1[ascend-outreach-engine]
         O1 --> O2[Drafts 3-Paragraph Executive Cold Emails]
         O1 --> O3[Drafts 280-char LinkedIn Connection Notes]
         O1 --> O4[Auto-Answers Greenhouse/Ashby Custom Questions]

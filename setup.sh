@@ -12,9 +12,9 @@ cd "$SCRIPT_DIR"
 
 echo ""
 echo "=================================================================="
-echo "     SWE CAREER SYSTEM - 60-SECOND PLUG & PLAY SETUP WIZARD       "
+echo "           ASCEND: 60-SECOND PLUG & PLAY SETUP WIZARD            "
 echo "=================================================================="
-echo "Turnkey containerized career autopilot for High-Paying SWE roles."
+echo "The Autonomous SWE Career Acceleration Engine ($130k-$350k+)."
 echo ""
 
 # 1. Initialize .env from .env.example if missing

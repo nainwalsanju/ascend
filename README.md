@@ -1,8 +1,18 @@
-# End-to-End High-Paying SWE Career System
+<div align="center">
 
-A containerized, metric-driven multi-agent career automation ecosystem designed to land Tier-1 and high-compensation ($130k–$350k+) Software Engineering roles.
+# ⚡ Ascend
 
-Built with strict Docker container isolation, local-first persistent storage, and zero paid third-party dependencies.
+### The Autonomous SWE Career Acceleration Engine
+**Land Tier-1 & High-Compensation ($130k–$350k+) Software Engineering Roles on Autopilot.**
+
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)](docker-compose.yml)
+[![RenderCV](https://img.shields.io/badge/RenderCV-sb2nov-orange)](https://github.com/rendercv/rendercv)
+[![Zero-Cost Tooling](https://img.shields.io/badge/100%25-Free--Tier%20Tooling-brightgreen)](#)
+[![Privacy First](https://img.shields.io/badge/Data-Local--First%20%26%20Private-black)](#)
+
+*Zero host dependencies. Strict Docker container isolation. 100% free-tier & offline-compatible.*
+
+</div>
 
 ---
 
@@ -41,13 +51,13 @@ docker compose up
 
 ```mermaid
 graph TD
-    User([User Trigger / Scheduled Run]) --> Orchestrator[System Orchestrator Agent]
+    User([User Trigger / Scheduled Run]) --> Orchestrator[Ascend Orchestrator]
     
     subgraph "Specialized Subagents (Docker Containerized)"
-        Orchestrator -->|Phase 1: Resume & Variants| Agent1[Resume Architect Agent<br/>career-rendercv]
-        Orchestrator -->|Phase 2: ATS & Interview Defense| Agent2[ATS Auditor Agent<br/>career-resume-matcher]
-        Orchestrator -->|Phase 3: Opportunity Discovery| Agent3[Market Scout Agent<br/>career-ops]
-        Orchestrator -->|Phase 4: Cold Outreach & Telemetry| Agent4[Outreach Dispatcher Agent<br/>career-outreach-engine]
+        Orchestrator -->|Phase 1: Resume & Variants| Agent1[Resume Architect<br/>ascend-rendercv]
+        Orchestrator -->|Phase 2: ATS & Interview Defense| Agent2[ATS Auditor<br/>ascend-resume-matcher]
+        Orchestrator -->|Phase 3: Opportunity Discovery| Agent3[Opportunity Radar<br/>ascend-ops]
+        Orchestrator -->|Phase 4: Cold Outreach & Telemetry| Agent4[Outreach Dispatcher<br/>ascend-outreach-engine]
         
         Agent2 -.->|Feedback Loop: Score < 85%| Agent1
         Agent3 -->|Top Roles Score >= 4.4| Agent4
@@ -67,26 +77,26 @@ graph TD
 
 ## ⚡ Specialized Subagent Services
 
-### 1. `resume-architect` (`services/rendercv`)
+### 1. `ascend-rendercv` (Resume Architect)
 - **Engine:** RenderCV + Typst / LaTeX vector compilation engine.
 - **Theme:** Jake's Resume Classic (`sb2nov`) with 1.2cm margins, single-column layout, and exact 2-page budget (zero orphan headers).
 - **Metric Formulation:** Enforces the **Google X-Y-Z Formula** (*Accomplished [X], as measured by [Y], by doing [Z]*) across every experience bullet.
 - **Outputs:** High-res vector ATS PDF (`candidate_cv.pdf`) and preview PNGs.
 
-### 2. `ats-auditor` (`services/resume-matcher`)
+### 2. `ascend-resume-matcher` (ATS Bar-Raiser & Interview Defense)
 - **Engine:** Semantic gap analyzer powered by free-tier Google Gemini (`gemini-3.8-flash`) or local Ollama (`llama3.2`).
 - **ATS Bar-Raiser:** Evaluates hard keyword coverage, systems engineering taxonomy, and metric density against target high-comp JDs.
 - **AI-Phrase Scrubbing Refiner:** Scans bullets against upstream `AI_PHRASE_BLACKLIST` to purge LLM cliches (*"spearheaded"*, *"architected"*, *"synergy"*, *"cutting-edge"*) and suggest high-signal engineering phrasing.
 - **Interview Defense Generator:** Compiles `interview_defense_prep.md` with deep-dive STAR narratives and high-probability system design defense answers (network partitions, CDC, consumer group rebalancing, exact-once semantics).
 
-### 3. `market-scout` (`services/career-ops`)
+### 3. `ascend-ops` (High-Comp Opportunity Radar)
 - **Engine:** Multi-portal job discovery engine scanning Greenhouse, Ashby, and Lever public endpoints.
 - **Compensation & Quality Filter:** Focuses strictly on high-compensation engineering roles ($130k–$350k+).
 - **Startup Funding & Runway Radar:** Ingests venture capital rounds, capital raised, valuations, and lead investors for Tier-1 companies and startups (OpenAI, Stripe, Databricks, Ramp, Scale AI, Figma, etc.).
 - **Decision-Maker Discovery:** Generates targeted search queries to identify Engineering Managers, Heads of Engineering, and Technical Recruiters.
 - **Application CRM:** Manages complete recruitment lifecycle in SQLite: `IDENTIFIED` $\rightarrow$ `TAILORED` $\rightarrow$ `APPLIED` $\rightarrow$ `OUTREACH_SENT` $\rightarrow$ `INTERVIEWING` $\rightarrow$ `OFFER`.
 
-### 4. `outreach-dispatcher` (`services/outreach-engine`)
+### 4. `ascend-outreach-engine` (Cold Outreach & Live Telemetry)
 - **Cold Email Composer:** Leverages LLM prompting to craft 3-paragraph executive cold emails referencing target engineering scale and candidate's quantifiable achievements.
 - **Application Form Auto-Answers:** Generates pre-written, truthful answers to common application portal questions (Greenhouse/Lever/Ashby) for fast copy-pasting during applications.
 - **Open & Click Telemetry Server:**
@@ -96,7 +106,7 @@ graph TD
 - **LinkedIn Outreach Sequencing:** Generates punchy 280-character connection request notes.
 - **Follow-up Cadence:** 3-stage reminder cadence (Day 3 check-in, Day 7 value-add architecture insight, Day 14 closeout).
 
-### 5. `system-orchestrator` (`AGENTS.md`)
+### 5. `ascend-orchestrator` (System Lifecycle)
 - Coordinates pipeline sequencing, enforces container isolation, validates persistent volume mounts, and handles feedback loops between auditing and resume tailoring.
 
 ---

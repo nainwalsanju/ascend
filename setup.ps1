@@ -8,9 +8,9 @@ $ErrorActionPreference = "Continue"
 
 Write-Host ""
 Write-Host "==================================================================" -ForegroundColor Cyan
-Write-Host "     SWE CAREER SYSTEM - 60-SECOND PLUG & PLAY SETUP WIZARD       " -ForegroundColor Cyan
+Write-Host "           ASCEND: 60-SECOND PLUG & PLAY SETUP WIZARD            " -ForegroundColor Cyan
 Write-Host "==================================================================" -ForegroundColor Cyan
-Write-Host "Turnkey containerized career autopilot for High-Paying SWE roles." -ForegroundColor Gray
+Write-Host "The Autonomous SWE Career Acceleration Engine ($130k-$350k+)." -ForegroundColor Gray
 Write-Host ""
 
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path

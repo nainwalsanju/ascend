@@ -13,7 +13,7 @@ cd "$SCRIPT_DIR"
 
 echo ""
 echo "=================================================================="
-echo "      END-TO-END HIGH-PAYING SWE CAREER SYSTEM (AUTOPILOT)       "
+echo "      ASCEND: AUTONOMOUS SWE CAREER ACCELERATION ENGINE          "
 echo "=================================================================="
 echo ""
 

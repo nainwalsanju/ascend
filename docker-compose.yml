@@ -3,8 +3,8 @@ services:
     build:
       context: ./services/rendercv
       dockerfile: Dockerfile
-    image: career-rendercv:latest
-    container_name: career-rendercv
+    image: ascend-rendercv:latest
+    container_name: ascend-rendercv
     volumes:
       - ./resume:/work
     working_dir: /work
@@ -14,8 +14,8 @@ services:
     build:
       context: ./services/resume-matcher
       dockerfile: Dockerfile
-    image: career-resume-matcher:latest
-    container_name: career-resume-matcher
+    image: ascend-resume-matcher:latest
+    container_name: ascend-resume-matcher
     volumes:
       - ./resume:/app/data/resumes
       - ./job_descriptions:/app/data/jobs
@@ -31,8 +31,8 @@ services:
     build:
       context: ./services/career-ops
       dockerfile: Dockerfile
-    image: career-ops:latest
-    container_name: career-ops
+    image: ascend-ops:latest
+    container_name: ascend-ops
     volumes:
       - ./tracker:/app/data
     environment:
@@ -44,8 +44,8 @@ services:
     build:
       context: ./services/outreach-engine
       dockerfile: Dockerfile
-    image: career-outreach-engine:latest
-    container_name: career-outreach-engine
+    image: ascend-outreach-engine:latest
+    container_name: ascend-outreach-engine
     volumes:
       - ./tracker:/app/data
       - ./resume:/app/resume

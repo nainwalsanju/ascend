@@ -1,7 +1,7 @@
-# Multi-Agent Architecture & Operating Manual (`AGENTS.md`)
-## End-to-End High-Paying SWE Career System (5-Agent Ecosystem)
+# Ascend: Multi-Agent Architecture & Operating Manual (`AGENTS.md`)
+## The Autonomous SWE Career Acceleration Engine (5-Agent Ecosystem)
 
-This document outlines the specialized subagent hierarchy, operational boundaries, communication protocols, telemetry mechanisms, and execution rules for the automated, containerized SWE Career System.
+This document outlines the specialized subagent hierarchy, operational boundaries, communication protocols, telemetry mechanisms, and execution rules for **Ascend**, the containerized SWE career acceleration engine.
 
 ---
 
@@ -21,13 +21,13 @@ Every subagent operating within this ecosystem MUST strictly adhere to the follo
 
 ```mermaid
 graph TD
-    User([User Request / Trigger]) --> Orchestrator[System Orchestrator Agent]
+    User([User Request / Trigger]) --> Orchestrator[Ascend Orchestrator]
     
     subgraph "Specialized Subagents (Docker Containerized)"
-        Orchestrator -->|Phase 1: Resume & Variants| Agent1[Resume Architect Agent<br/>career-rendercv]
-        Orchestrator -->|Phase 2: ATS & Interview Prep| Agent2[ATS Auditor Agent<br/>career-resume-matcher]
-        Orchestrator -->|Phase 3: Opportunity Discovery| Agent3[Market Scout Agent<br/>career-ops]
-        Orchestrator -->|Phase 4: Outreach & Telemetry| Agent4[Outreach Dispatcher Agent<br/>career-outreach-engine]
+        Orchestrator -->|Phase 1: Resume & Variants| Agent1[Resume Architect<br/>ascend-rendercv]
+        Orchestrator -->|Phase 2: ATS & Interview Prep| Agent2[ATS Auditor<br/>ascend-resume-matcher]
+        Orchestrator -->|Phase 3: Opportunity Discovery| Agent3[Opportunity Radar<br/>ascend-ops]
+        Orchestrator -->|Phase 4: Outreach & Telemetry| Agent4[Outreach Dispatcher<br/>ascend-outreach-engine]
         
         Agent2 -.->|Feedback Loop: Score < 85%| Agent1
         Agent3 -->|Vetted Opportunities| Agent4

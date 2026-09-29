@@ -17,7 +17,7 @@ $ErrorActionPreference = "Continue"
 
 Write-Host ""
 Write-Host "==================================================================" -ForegroundColor Cyan
-Write-Host "      END-TO-END HIGH-PAYING SWE CAREER SYSTEM (AUTOPILOT)       " -ForegroundColor Cyan
+Write-Host "      ASCEND: AUTONOMOUS SWE CAREER ACCELERATION ENGINE          " -ForegroundColor Cyan
 Write-Host "==================================================================" -ForegroundColor Cyan
 Write-Host ""
 
