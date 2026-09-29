@@ -136,24 +136,28 @@ Output strictly valid JSON with keys:
             company = job.get('company', 'your team')
             title = job.get('title', 'Senior Engineer')
             contact_first = contact.get('name', 'there').split()[0]
+            achievements_text = "\n".join([f"• {a}" for a in self.candidate.get("top_achievements", [])[:2]])
+            if not achievements_text:
+                achievements_text = (
+                    "• Led zero-downtime database migrations with automated consistency verification.\n"
+                    "• Architected fault-tolerant event-driven microservices handling 30,000+ QPS."
+                )
             result = {
-                "cold_email_subject": f"{title} @ {company} — Scaling distributed systems & payment infrastructure",
+                "cold_email_subject": f"{title} @ {company} — Scaling distributed systems & backend infrastructure",
                 "cold_email_body": (
                     f"Hi {contact_first},\n\n"
                     f"I've been following {company}'s impressive engineering milestones and noticed you are hiring for a {title}. Given your focus on high-throughput reliability and clean system design, I wanted to reach out directly.\n\n"
-                    f"Over the last 5+ years as a Senior Backend & Systems Engineer (SDE-2 at BharatPe and Founding Engineer at US startups):\n"
-                    f"• Spearheaded a zero-downtime database migration for 10 Billion+ transaction records from AWS RDS to Amazon Aurora with 0% data loss.\n"
-                    f"• Architected fault-tolerant payment ingestion pipelines handling 35,000 QPS with 99.99% availability via Apache Kafka, Redis, and Spring Boot.\n"
-                    f"• Engineered autonomous AI SDR and enrichment engines handling multi-tenant workflows across Next.js and Supabase.\n\n"
+                    f"Over the last 5+ years building and scaling production infrastructure:\n"
+                    f"{achievements_text}\n\n"
                     f"You can explore my architecture deep-dives and live projects at {self.candidate['portfolio']}.\n\n"
                     f"Would you be open to a brief 10-minute conversation this week to discuss how I can contribute to {company}?\n\n"
                     f"Best regards,\n{self.candidate['name']}\n{self.candidate['email']} | {self.candidate['linkedin']}"
                 ),
                 "linkedin_connection_note": (
-                    f"Hi {contact_first}, I saw {company} is scaling its backend for {title}. I've architected 10B+ Aurora migrations and 35k QPS payment engines at BharatPe & US startups. Would love to connect!"
+                    f"Hi {contact_first}, I saw {company} is scaling for {title}. I've architected large-scale distributed migrations and high-throughput microservices. Would love to connect!"
                 )[:295],
                 "followup_email_body": (
-                    f"Hi {contact_first}, following up on my previous note regarding the {title} role at {company}. I'd love to share brief technical details on our recent 35k QPS latency optimizations if you have 10 minutes this week."
+                    f"Hi {contact_first}, following up on my previous note regarding the {title} role at {company}. I'd love to share brief technical details on scaling high-throughput pipelines if you have 10 minutes this week."
                 )
             }
         return result

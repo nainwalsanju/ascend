@@ -7,16 +7,16 @@ The `outreach-dispatcher` subagent handles automated cold outreach composition, 
 
 ## 1. Domain & Scope
 - **Domain:** Cold recruiter/founder outreach, email delivery, LinkedIn connection drafting, tracking pixel telemetry, follow-up cadence state machine.
-- **Service Container:** `career-outreach-engine`
+- **Service Container:** `ascend-outreach-engine`
 - **Volume Mounts:**
-  - `D:\Projects\career-system\tracker:/app/data`
-  - `D:\Projects\career-system\resume:/app/resume`
+  - `D:\Projects\ascend\tracker:/app/data`
+  - `D:\Projects\ascend\resume:/app/resume`
 - **Port:** `8085` (Telemetric tracking server)
 
 ---
 
 ## 2. Core Responsibilities
-1. **Cold Email Generation:** Use `gemini-3.8-flash` to craft 3-paragraph executive cold emails referencing target engineering scale and candidate's quantifiable metrics (e.g. 10B+ Aurora migration, 35k QPS Kafka, Sherloc Plus, GrowFig AI SDR).
+1. **Cold Email Generation:** Use `gemini-3.8-flash` to craft 3-paragraph executive cold emails referencing target engineering scale and candidate's quantifiable metrics (e.g. large-scale database migrations, 30k+ QPS pipelines, anomaly detection engines, autonomous AI agent platforms).
 2. **Email Delivery & SMTP Support:** Send emails via Python's native `smtplib` using free Gmail App Passwords (`smtp.gmail.com:587`) or free-tier Resend API with zero paid subscriptions.
 3. **Open & Click Telemetry:**
    - Inject 1x1 transparent tracking pixel: `GET /t/o/{tracking_id}`
