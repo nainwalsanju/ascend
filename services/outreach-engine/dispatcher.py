@@ -6,19 +6,36 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from pathlib import Path
 
-SMTP_HOST = os.getenv("SMTP_HOST", "smtp.gmail.com").strip()
-SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
-SMTP_USER = os.getenv("SMTP_USER", "").strip()
-SMTP_PASS = os.getenv("SMTP_PASS", "").strip()
-TRACKING_BASE_URL = os.getenv("TRACKING_BASE_URL", "http://localhost:8085").strip()
+def _load_env_if_needed():
+    """Fallback loader for .env without requiring python-dotenv."""
+    for base_dir in [Path.cwd(), Path(__file__).resolve().parent.parent.parent]:
+        env_file = base_dir / ".env"
+        if env_file.exists():
+            try:
+                with open(env_file, "r", encoding="utf-8") as f:
+                    for line in f:
+                        line = line.strip()
+                        if not line or line.startswith("#") or "=" not in line:
+                            continue
+                        k, v = line.split("=", 1)
+                        k = k.strip()
+                        v = v.strip().strip('"').strip("'")
+                        if k not in os.environ:
+                            os.environ[k] = v
+                break
+            except Exception:
+                pass
+
+_load_env_if_needed()
 
 class EmailDispatcher:
     def __init__(self):
-        self.smtp_host = SMTP_HOST
-        self.smtp_port = SMTP_PORT
-        self.smtp_user = SMTP_USER
-        self.smtp_pass = SMTP_PASS
-        self.tracking_url = TRACKING_BASE_URL
+        _load_env_if_needed()
+        self.smtp_host = os.getenv("SMTP_HOST", "smtp.gmail.com").strip()
+        self.smtp_port = int(os.getenv("SMTP_PORT", "587"))
+        self.smtp_user = os.getenv("SMTP_USER", "").strip()
+        self.smtp_pass = os.getenv("SMTP_PASS", "").strip()
+        self.tracking_url = os.getenv("TRACKING_BASE_URL", "http://localhost:8085").strip()
 
     def inject_tracking(self, text_body: str, tracking_id: str, links_to_wrap: list[str] = None) -> tuple[str, str]:
         """
@@ -81,6 +98,52 @@ class EmailDispatcher:
                 server.sendmail(self.smtp_user, [to_email], msg.as_string())
             print(f"[Dispatcher Success] Email dispatched to {to_email}")
             return {"status": "sent", "message": "Email sent successfully."}
+        except smtplib.SMTPAuthenticationError as auth_err:
+            err_str = str(auth_err)
+            if "5.7.9" in err_str or "Application-specific password" in err_str:
+                hint = (
+                    "Gmail requires a 16-character App Password (not your personal Google account password).\n"
+                    "Generate one at: https://myaccount.google.com/apppasswords and set SMTP_PASS in .env"
+                )
+            else:
+                hint = "SMTP Authentication failed. Please check SMTP_USER and SMTP_PASS."
+            print(f"[Dispatcher Error]: {auth_err}\n[Hint]: {hint}")
+            return {"status": "failed", "error": err_str, "hint": hint}
         except Exception as e:
             print(f"[Dispatcher Error]: {e}")
             return {"status": "failed", "error": str(e)}
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="Ascend Outreach Email Dispatcher")
+    parser.add_argument("--to", required=True, help="Recipient email address")
+    parser.add_argument("--subject", default="⚡ Ascend Engine: Test Outreach Dispatch", help="Email subject")
+    parser.add_argument("--attach-cv", action="store_true", help="Attach generated CV PDF if found")
+    args = parser.parse_args()
+
+    dispatcher = EmailDispatcher()
+    sample_text = (
+        "Hello,\n\n"
+        "This is an automated test dispatch from the Ascend Career Acceleration Engine.\n"
+        "All telemetry tracking links and SMTP delivery pipelines are functioning.\n\n"
+        "Target Scale Repository: https://github.com/nainwalsanju/ascend\n\n"
+        "Best regards,\n"
+        f"{os.getenv('CANDIDATE_NAME', 'Candidate')}"
+    )
+    plain, html = dispatcher.inject_tracking(sample_text, "cli-test-tracking-001", ["https://github.com/nainwalsanju/ascend"])
+    
+    cv_path = None
+    if args.attach_cv:
+        possible = Path.cwd() / "resume" / "rendercv_output" / "Sanjay_Nainwal_CV.pdf"
+        if possible.exists():
+            cv_path = possible
+
+    result = dispatcher.send_email(
+        to_email=args.to,
+        subject=args.subject,
+        plain_body=plain,
+        html_body=html,
+        attachment_path=cv_path
+    )
+    print("\nResult:", result)
+
