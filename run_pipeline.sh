@@ -59,7 +59,7 @@ docker compose run --rm career-ops
 
 # 5. Phase 4: Cold Outreach, LinkedIn Notes & Form Answers
 echo -e "\n>>> [Phase 4/4] Generating Cold Outreach, LinkedIn Sequences & Form Auto-Answers..."
-docker compose run --rm outreach-engine
+docker compose run --rm outreach-engine python pipeline.py
 
 # 6. Phase 5: Start / Refresh Background Telemetry Daemon
 echo -e "\n>>> [Phase 5] Ensuring Telemetry Tracking Server is Running (Port 8085)..."

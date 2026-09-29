@@ -93,7 +93,7 @@ if (-not $SkipScrape) {
 
 # 5. Phase 4: Cold Outreach, LinkedIn Notes & Form Answers (Outreach-Engine)
 Write-Host "`n>>> [Phase 4/4] Generating Cold Outreach, LinkedIn Sequences & Form Auto-Answers..." -ForegroundColor Yellow
-docker compose run --rm outreach-engine
+docker compose run --rm outreach-engine python pipeline.py
 if ($LASTEXITCODE -ne 0) {
     Write-Warning "[Warning] Outreach generation completed with non-zero exit code."
 } else {

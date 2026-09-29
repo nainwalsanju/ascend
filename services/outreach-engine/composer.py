@@ -33,15 +33,19 @@ class OutreachComposer:
             self.candidate = self._load_profile_from_resume_or_env()
 
     def _load_profile_from_resume_or_env(self) -> dict:
-        """Loads candidate profile dynamically from local master_resume.yaml or env vars."""
-        resume_path = Path("/app/resume/master_resume.yaml")
-        if not resume_path.exists():
-            resume_path = Path("resume/master_resume.yaml")
+        """Loads candidate profile dynamically from local master_resume.yaml, example yaml, or env vars."""
+        candidate_paths = [
+            Path("/app/resume/master_resume.yaml"),
+            Path("resume/master_resume.yaml"),
+            Path("/app/resume/master_resume.example.yaml"),
+            Path("resume/master_resume.example.yaml")
+        ]
+        chosen_path = next((p for p in candidate_paths if p.exists()), None)
 
-        if resume_path.exists():
+        if chosen_path:
             try:
                 import yaml
-                with open(resume_path, "r", encoding="utf-8") as f:
+                with open(chosen_path, "r", encoding="utf-8") as f:
                     data = yaml.safe_load(f)
                     cv = data.get("cv", {})
                     name = cv.get("name", os.getenv("CANDIDATE_NAME", "Candidate Name"))
@@ -50,6 +54,21 @@ class OutreachComposer:
                     socials = cv.get("social_networks", [])
                     gh = next((s.get("username") for s in socials if s.get("network", "").lower() == "github"), "candidate")
                     li = next((s.get("username") for s in socials if s.get("network", "").lower() == "linkedin"), "candidate")
+                    
+                    achievements = []
+                    for exp in cv.get("sections", {}).get("experience", []):
+                        for hl in exp.get("highlights", []):
+                            if hl and len(achievements) < 4:
+                                achievements.append(hl)
+                                
+                    if not achievements:
+                        achievements = [
+                            "Architected high-throughput distributed systems and mission-critical cloud infrastructure.",
+                            "Led zero-downtime database migrations with zero data loss using dual-write sync and CDC.",
+                            "Engineered fault-tolerant event-driven pipelines handling 30,000+ QPS with sub-10ms response times.",
+                            "Launched scalable full-stack applications and autonomous AI agent workflows."
+                        ]
+
                     return {
                         "name": name,
                         "title": os.getenv("CANDIDATE_TITLE", "Senior Full-Stack & Distributed Systems Engineer"),
@@ -57,15 +76,10 @@ class OutreachComposer:
                         "linkedin": f"https://www.linkedin.com/in/{li}",
                         "portfolio": website,
                         "github": f"https://github.com/{gh}",
-                        "top_achievements": [
-                            "Architected high-throughput distributed systems and mission-critical cloud infrastructure.",
-                            "Led zero-downtime database migrations with zero data loss using dual-write sync and CDC.",
-                            "Engineered fault-tolerant event-driven pipelines handling 30,000+ QPS with sub-10ms response times.",
-                            "Launched scalable full-stack applications and autonomous AI agent workflows."
-                        ]
+                        "top_achievements": achievements
                     }
             except Exception as e:
-                print(f"[Composer Warning] Could not parse local master_resume.yaml: {e}")
+                print(f"[Composer Warning] Could not parse resume YAML: {e}")
 
         return {
             "name": os.getenv("CANDIDATE_NAME", "Candidate Name"),

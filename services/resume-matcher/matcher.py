@@ -22,20 +22,37 @@ GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash").strip()
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://ollama:11434").strip()
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.2").strip()
 
-def load_resume_text() -> tuple[str, list[str]]:
-    """Loads resume content and extracts bullet points."""
+def load_resume_text() -> tuple[str, list[str], list[dict]]:
+    """Loads resume content, extracts bullet points, and returns structured experiences."""
     bullets = []
+    experiences = []
     text_content = ""
     
-    # Check for yaml resume first
-    yaml_files = list(RESUMES_DIR.glob("*.yaml")) + list(RESUMES_DIR.glob("*.yml"))
-    if yaml_files:
-        with open(yaml_files[0], "r", encoding="utf-8") as f:
+    # Prioritize master_resume.yaml over master_resume.example.yaml
+    master_target = RESUMES_DIR / "master_resume.yaml"
+    example_target = RESUMES_DIR / "master_resume.example.yaml"
+    
+    chosen_yaml = None
+    if master_target.exists():
+        chosen_yaml = master_target
+    elif example_target.exists():
+        chosen_yaml = example_target
+    else:
+        all_yamls = list(RESUMES_DIR.glob("*.yaml")) + list(RESUMES_DIR.glob("*.yml"))
+        if all_yamls:
+            chosen_yaml = all_yamls[0]
+
+    if chosen_yaml:
+        print(f"[Resume-Matcher] Ingesting resume source: {chosen_yaml.name}")
+        with open(chosen_yaml, "r", encoding="utf-8") as f:
             try:
                 data = yaml.safe_load(f)
                 text_content += json.dumps(data)
                 cv = data.get("cv", {})
                 sections = cv.get("sections", {})
+                exp_list = sections.get("experience", [])
+                if isinstance(exp_list, list):
+                    experiences = exp_list
                 for sec_name in ["experience", "projects"]:
                     items = sections.get(sec_name, [])
                     if isinstance(items, list):
@@ -60,7 +77,7 @@ def load_resume_text() -> tuple[str, list[str]]:
         except Exception as e:
             print(f"[Warning] Failed parsing PDF: {e}")
 
-    return text_content, bullets
+    return text_content, bullets, experiences
 
 def load_jobs() -> list[tuple[str, str]]:
     """Loads all target job descriptions."""
@@ -255,7 +272,7 @@ def main():
     
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     
-    resume_text, bullets = load_resume_text()
+    resume_text, bullets, experiences = load_resume_text()
     if not resume_text:
         print("[Error] No resume found in /app/data/resumes. Place master_resume.yaml or a PDF there.")
         sys.exit(1)
@@ -350,20 +367,24 @@ def main():
         pf.write("# Tier-1 Technical Interview Defense & Architecture Cheat-Sheet\n\n")
         pf.write("This document prepares the candidate for high-intensity FAANG / Staff-level System Design and Architecture Defense interviews.\n\n")
         pf.write("---\n\n")
-        pf.write("## 1. Core Architectural Stories\n\n")
-        pf.write("### Story A: 10 Billion+ Zero-Downtime Aurora Database Migration (BharatPe)\n")
-        pf.write("- **Challenge:** Migrate 10B+ transaction records from AWS RDS MySQL to Amazon Aurora without a single second of maintenance window or data loss.\n")
-        pf.write("- **Implementation (Z):** Dual-write replication architecture with asynchronous change data capture (CDC), Kafka replay validation, and automated shadow consistency verification.\n")
-        pf.write("- **Defense Q: What happened when network partitions occurred during dual writes?**\n")
-        pf.write("  - *Defense Answer:* Implemented distributed idempotency keys in Redis with dual-write reconciliation workers comparing table checksums during low-traffic windows before flipping read traffic.\n\n")
-        pf.write("### Story B: 35,000 QPS Payment Ingestion Pipeline (Kafka + Redis)\n")
-        pf.write("- **Challenge:** Ingest 35k QPS with sub-10ms response times and 99.99% availability.\n")
-        pf.write("- **Implementation (Z):** Asynchronous Kafka event partitioning keyed on merchant ID with Redis write-behind caching.\n")
-        pf.write("- **Defense Q: How did you handle consumer group rebalancing under high lag?**\n")
-        pf.write("  - *Defense Answer:* Configured static group membership (`group.instance.id`), tuned heartbeat timeouts, and isolated heavy batch consumers into separate topic partitions.\n\n")
-        pf.write("### Story C: Autonomous AI SDR Engine (GrowFig AI)\n")
-        pf.write("- **Challenge:** High-throughput prospect discovery across 29,000+ manufacturing contacts with zero prompt leakage.\n")
-        pf.write("- **Implementation (Z):** SSRF-hardened web crawler waterfall, Cheerio DOM extraction, Supabase PostgreSQL multi-tenant isolation, and `/api/engine/tick` distributed lease workers.\n\n")
+        pf.write("## 1. Candidate Core Architectural Stories (STAR Narratives)\n\n")
+        
+        if experiences:
+            for idx, exp in enumerate(experiences[:3], 1):
+                c_name = exp.get("company", f"Engineering Role {idx}")
+                c_pos = exp.get("position", "Senior Engineer")
+                hl = exp.get("highlights", [])
+                hl_summary = hl[0] if hl else "Architected distributed systems, high-throughput microservices, and cloud services."
+                pf.write(f"### Story {chr(64+idx)}: {c_pos} ({c_name})\n")
+                pf.write(f"- **Key Accomplishment:** {hl_summary}\n")
+                pf.write(f"- **Implementation Strategy (Z):** Utilized event-driven architecture, distributed caching/locking, and rigorous zero-downtime consistency verification.\n")
+                pf.write(f"- **Defense Q: What failure modes did you design for in this architecture?**\n")
+                pf.write(f"  - *Defense Answer:* Designed for network partitions, database connection pool exhaustion, consumer group rebalancing, and message deduplication using distributed idempotency keys.\n\n")
+        else:
+            pf.write("### Story A: Zero-Downtime Multi-Region Database Migration\n")
+            pf.write("- **Challenge:** Migrate large-scale transaction records without maintenance downtime or data loss.\n")
+            pf.write("- **Implementation (Z):** Dual-write replication architecture with asynchronous change data capture (CDC), Kafka replay validation, and automated shadow consistency verification.\n\n")
+
         pf.write("---\n\n")
         pf.write("## 2. Target Job Technical Defense Questions\n\n")
         for r in reports:

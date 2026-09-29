@@ -14,43 +14,47 @@ DEFAULT_QUESTIONS = [
     {
         "id": "why_company",
         "question": "Why are you interested in joining {company} and this specific role?",
-        "instruction": "Explain why the candidate wants to join this company, referencing their specific engineering scale or product and how candidate's experience at BharatPe, AssetTrace, or GrowFig aligns."
+        "instruction": "Explain why the candidate wants to join this company, referencing their specific engineering scale or product and how candidate's technical experience and high-impact wins align."
     },
     {
         "id": "complex_system_challenge",
         "question": "Describe the most complex distributed systems or backend challenge you have solved.",
-        "instruction": "Detail the 10 Billion+ record zero-downtime Aurora database migration or the 35,000 QPS Kafka payment ingestion pipeline with dual writes, CDC, and distributed Redis idempotency."
+        "instruction": "Detail candidate's experience with zero-downtime database migrations, high-throughput streaming pipelines, distributed caching with Redis, or asynchronous event processing."
     },
     {
         "id": "fullstack_ai_experience",
         "question": "Describe your experience building modern full-stack web applications and AI agent workflows.",
-        "instruction": "Detail founding AssetTrace from ground zero (Next.js, Spring Boot, 100k+ public records) and building the GrowFig AI SDR engine (Next.js, Python, Supabase, 29k+ contact enrichment with lease lock workers)."
+        "instruction": "Detail architecting full-stack web applications (Next.js, TypeScript, Python) and autonomous AI agent orchestration workflows with structured outputs and worker loops."
     },
     {
         "id": "production_incident_defense",
         "question": "Describe a situation where you diagnosed and resolved a critical production incident or p99 latency spike.",
-        "instruction": "Explain consumer group rebalancing under Kafka lag, DB connection pool starvation, or fraud leakages mitigated by Sherloc Plus (reducing losses by 42%)."
+        "instruction": "Explain troubleshooting distributed bottlenecks, database connection starvation, consumer group rebalancing under high lag, or telemetry anomalies."
     },
     {
         "id": "compensation_availability",
         "question": "What are your compensation expectations, work authorization, and earliest start date?",
-        "instruction": "Target: $180k - $260k+ base (depending on tier and equity upside). Availability: Immediate to 2 weeks notice. Location: Open to Remote or US hybrid/relocation."
+        "instruction": "Target: Market competitive for Senior/Staff engineering roles (flexible based on equity). Availability: Immediate to standard notice period. Location: Open to Remote or hub relocation."
     }
 ]
 
 def _load_candidate_profile() -> dict:
-    """Loads candidate profile dynamically from local master_resume.yaml or env vars."""
-    resume_path = Path("/app/resume/master_resume.yaml")
-    if not resume_path.exists():
-        resume_path = Path("resume/master_resume.yaml")
+    """Loads candidate profile dynamically from local master_resume.yaml, example yaml, or env vars."""
+    candidate_paths = [
+        Path("/app/resume/master_resume.yaml"),
+        Path("resume/master_resume.yaml"),
+        Path("/app/resume/master_resume.example.yaml"),
+        Path("resume/master_resume.example.yaml")
+    ]
+    chosen_path = next((p for p in candidate_paths if p.exists()), None)
 
     candidate_name = os.getenv("CANDIDATE_NAME", "the candidate")
     facts = []
 
-    if resume_path.exists():
+    if chosen_path:
         try:
             import yaml
-            with open(resume_path, "r", encoding="utf-8") as f:
+            with open(chosen_path, "r", encoding="utf-8") as f:
                 data = yaml.safe_load(f)
                 cv = data.get("cv", {})
                 candidate_name = cv.get("name", candidate_name)

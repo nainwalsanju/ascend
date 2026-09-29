@@ -64,44 +64,62 @@ graph TD
 
 ---
 
-## 2. One-Time 3-Minute Initial Setup
+## 2. 60-Second Plug & Play Setup
 
-You only need to configure your environment once. All dependencies run inside Docker, meaning **zero software needs to be installed on your Windows/Mac host** except Docker Desktop.
+All dependencies run inside isolated Docker containers, meaning **zero software needs to be installed on your Windows/Mac host** except Docker Desktop.
 
-### Step 1: Ensure Docker Desktop is Running
-Make sure Docker Desktop is running in the background on your system.
+### Option A: Interactive Setup Wizard (Fastest)
 
-### Step 2: Configure Environment Keys (`.env`)
-Copy `.env.example` to `.env` (if not already done):
+Run the interactive setup wizard to configure your profile and environment in 30 seconds:
+
 ```powershell
 # Windows PowerShell
-Copy-Item .env.example .env
-```
-Open `.env` and fill in your free credentials:
-```ini
-# Free-Tier LLM Backend (Get a free key at https://aistudio.google.com/)
-GEMINI_API_KEY=your_free_gemini_api_key
-GEMINI_MODEL=gemini-3.8-flash
+.\setup.ps1
 
-# Market-Scout High-Comp Filtering
-MIN_BASE_SALARY=130000
-TARGET_MAX_SALARY=350000
-
-# Optional: Email Delivery (Free Gmail App Password)
-# If left blank, Outreach Engine automatically runs in safe DRY_RUN mode.
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your_email@gmail.com
-SMTP_PASS=your_gmail_app_password
-TRACKING_BASE_URL=http://localhost:8085
+# macOS / Linux / WSL
+chmod +x setup.sh && ./setup.sh
 ```
 
-### Step 3: Set Up Your Resume Data
-Copy the template and fill in your experience:
-```powershell
-Copy-Item resume/master_resume.example.yaml resume/master_resume.yaml
-```
-*(Your personal `master_resume.yaml` is automatically gitignored so your personal information remains strictly on your local disk.)*
+The wizard will:
+1. Initialize `.env` from `.env.example`
+2. Initialize `resume/master_resume.yaml` from template
+3. Prompt for your Name, Target Title, and optional Gemini API Key
+4. Offer to immediately trigger the full autonomous pipeline
+
+---
+
+### Option B: Manual Configuration
+
+If you prefer to configure manually:
+
+1. **Start Docker Desktop**: Ensure Docker Desktop is running in the background.
+2. **Copy Environment Template**:
+   ```powershell
+   Copy-Item .env.example .env
+   ```
+3. **Configure Keys** in `.env`:
+   ```ini
+   # Free-Tier LLM Backend (Get a free key at https://aistudio.google.com/)
+   GEMINI_API_KEY=your_free_gemini_api_key
+   GEMINI_MODEL=gemini-3.8-flash
+
+   # Market-Scout High-Comp Filtering
+   MIN_BASE_SALARY=130000
+   TARGET_MAX_SALARY=350000
+
+   # Optional: Email Delivery (Free Gmail App Password)
+   # If left blank, Outreach Engine automatically runs in safe DRY_RUN mode.
+   SMTP_HOST=smtp.gmail.com
+   SMTP_PORT=587
+   SMTP_USER=your_email@gmail.com
+   SMTP_PASS=your_gmail_app_password
+   TRACKING_BASE_URL=http://localhost:8085
+   ```
+4. **Initialize Your Resume Data**:
+   ```powershell
+   Copy-Item resume/master_resume.example.yaml resume/master_resume.yaml
+   ```
+   *(Your personal `master_resume.yaml` is automatically gitignored so your personal information remains strictly on your local disk.)*
 
 ---
 

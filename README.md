@@ -6,6 +6,37 @@ Built with strict Docker container isolation, local-first persistent storage, an
 
 ---
 
+## 🚀 60-Second Plug & Play Quickstart
+
+Anyone can clone and run this entire career system instantly — **zero host dependencies, no manual setup, and 100% free-tier offline-compatible**:
+
+### Option A: Interactive Setup Wizard (Recommended)
+```powershell
+# Windows PowerShell
+.\setup.ps1
+
+# macOS / Linux / WSL
+chmod +x setup.sh && ./setup.sh
+```
+*Prompts for your name and role, personalizes your local resume template, and launches the autopilot.*
+
+### Option B: 1-Click Autopilot Runner
+```powershell
+# Windows PowerShell
+.\run_pipeline.ps1
+
+# macOS / Linux / WSL
+chmod +x run_pipeline.sh && ./run_pipeline.sh
+```
+*Auto-bootstraps `.env` and `master_resume.yaml` if missing, compiles your vector ATS PDF resume, audits ATS compatibility, scans high-paying jobs ($170k–$370k+), drafts personalized cold emails & form answers, and launches the live telemetry daemon on port 8085.*
+
+### Option C: Pure Docker Compose
+```bash
+docker compose up
+```
+
+---
+
 ## 🏗️ 5-Subagent Architecture
 
 ```mermaid

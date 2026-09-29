@@ -19,7 +19,10 @@ WORKDIR /app
 # Install rendercv[full] for complete CLI, typst and templating engine, plus click
 RUN pip install --no-cache-dir "rendercv[full]" click
 
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
 WORKDIR /work
 
-ENTRYPOINT ["rendercv"]
-CMD ["--help"]
+ENTRYPOINT ["/app/entrypoint.sh"]
+CMD ["render", "master_resume.yaml"]
